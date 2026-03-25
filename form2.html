@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Web Data Pegawai</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+h2 {
+    text-align: center;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background: #00c6ff;
+}
+#notif {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Form Data Pegawai</h2>
+
+    <form id="myForm">
+
+        <input type="text" id="nama" placeholder="Nama" required>
+        <input type="text" id="nip" placeholder="NIP" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="nomor" placeholder="Nomor HP" required>
+        <input type="text" id="opd" placeholder="Unit Kerja" required>
+        <input type="text" id="job" placeholder="Jabatan" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="notif">✅ Data berhasil dikirim!</div>
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let formData = new FormData();
+
+    formData.append("entry.2005620554", document.getElementById("nama").value);
+    formData.append("entry.1045781291", document.getElementById("nip").value);
+    formData.append("entry.1065046570", document.getElementById("email").value);
+    formData.append("entry.1166974658", document.getElementById("nomor").value);
+    formData.append("entry.1633785336", document.getElementById("opd").value);
+    formData.append("entry.289596622", document.getElementById("job").value);
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfESALMZsnxNa0TFSHGv3C2Ld9-VSM-2pC87oyYK4vaSIm6Nw/formResponse?usp=pp_url", {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+    });
+
+    document.getElementById("notif").style.display = "block";
+    document.getElementById("myForm").reset();
+});
+</script>
+
+</body>
+</html>
